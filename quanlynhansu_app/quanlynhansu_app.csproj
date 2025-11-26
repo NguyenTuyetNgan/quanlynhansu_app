@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- MySQL Connector cho .NET -->
+    <PackageReference Include="MySql.Data" Version="8.3.0" />
+    
+    <!-- Entity Framework Core cho MySQL (tùy chọn) -->
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
+    
+    <!-- LiveCharts2 cho biểu đồ đẹp -->
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
+    
+    <!-- Material Design cho UI đẹp -->
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+    
+    <!-- EPPlus cho xuất Excel -->
+    <PackageReference Include="EPPlus" Version="7.0.4" />
+  </ItemGroup>
+
+</Project>

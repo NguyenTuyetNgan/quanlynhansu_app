@@ -1,0 +1,290 @@
+﻿<Page x:Class="quanlynhansu_app.Views.Pages.DanhMucPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Cài đặt hệ thống"
+      Background="{StaticResource BackgroundBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <!-- ================= HEADER ================= -->
+            <TextBlock Text="⚙️ Cài đặt hệ thống" 
+                      FontSize="28" 
+                      FontWeight="Bold"
+                      Margin="0,0,0,30"/>
+
+            <!-- ================= SETTINGS GRID ================= -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Card 1: Chức vụ -->
+                <Border Grid.Row="0" Grid.Column="0" 
+                       Style="{StaticResource CardStyle}"
+                       Margin="0,0,10,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Border Width="50" Height="50" 
+                                   CornerRadius="10"
+                                   Background="{StaticResource PrimaryGradientBrush}"
+                                   Margin="0,0,15,0">
+                                <TextBlock Text="💼" 
+                                          FontSize="24"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Chức vụ" 
+                                      FontSize="18" 
+                                      FontWeight="SemiBold"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="lstChucVu">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F9FA" 
+                                               CornerRadius="6" 
+                                               Padding="10"
+                                               Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBlock Text="{Binding TenChucVu}" 
+                                                          FontSize="14"
+                                                          VerticalAlignment="Center"/>
+                                                <Button Content="🗑️" 
+                                                       HorizontalAlignment="Right"
+                                                       Style="{StaticResource MaterialDesignIconButton}"
+                                                       Click="BtnDeleteChucVu_Click"
+                                                       Tag="{Binding Id}"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <Button Content="+ Thêm" 
+                               Style="{StaticResource PrimaryButtonStyle}"
+                               Margin="0,10,0,0"
+                               Click="BtnAddChucVu_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 2: Loại hợp đồng -->
+                <Border Grid.Row="0" Grid.Column="1" 
+                       Style="{StaticResource CardStyle}"
+                       Margin="0,0,10,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Border Width="50" Height="50" 
+                                   CornerRadius="10"
+                                   Background="{StaticResource PrimaryGradientBrush}"
+                                   Margin="0,0,15,0">
+                                <TextBlock Text="📋" 
+                                          FontSize="24"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Loại hợp đồng" 
+                                      FontSize="18" 
+                                      FontWeight="SemiBold"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="lstLoaiHopDong">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F9FA" 
+                                               CornerRadius="6" 
+                                               Padding="10"
+                                               Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBlock Text="{Binding TenLoai}" 
+                                                          FontSize="14"
+                                                          VerticalAlignment="Center"/>
+                                                <Button Content="🗑️" 
+                                                       HorizontalAlignment="Right"
+                                                       Style="{StaticResource MaterialDesignIconButton}"
+                                                       Click="BtnDeleteLoaiHopDong_Click"
+                                                       Tag="{Binding Id}"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <Button Content="+ Thêm" 
+                               Style="{StaticResource PrimaryButtonStyle}"
+                               Margin="0,10,0,0"
+                               Click="BtnAddLoaiHopDong_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 3: Trình độ học vấn -->
+                <Border Grid.Row="0" Grid.Column="2" 
+                       Style="{StaticResource CardStyle}"
+                       Margin="0,0,0,20">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Border Width="50" Height="50" 
+                                   CornerRadius="10"
+                                   Background="{StaticResource PrimaryGradientBrush}"
+                                   Margin="0,0,15,0">
+                                <TextBlock Text="🎓" 
+                                          FontSize="24"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Trình độ học vấn" 
+                                      FontSize="18" 
+                                      FontWeight="SemiBold"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="lstTrinhDo">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F9FA" 
+                                               CornerRadius="6" 
+                                               Padding="10"
+                                               Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBlock Text="{Binding TenTrinhDo}" 
+                                                          FontSize="14"
+                                                          VerticalAlignment="Center"/>
+                                                <Button Content="🗑️" 
+                                                       HorizontalAlignment="Right"
+                                                       Style="{StaticResource MaterialDesignIconButton}"
+                                                       Click="BtnDeleteTrinhDo_Click"
+                                                       Tag="{Binding Id}"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <Button Content="+ Thêm" 
+                               Style="{StaticResource PrimaryButtonStyle}"
+                               Margin="0,10,0,0"
+                               Click="BtnAddTrinhDo_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 4: Trạng thái nhân viên -->
+                <Border Grid.Row="1" Grid.Column="0" 
+                       Style="{StaticResource CardStyle}"
+                       Margin="0,0,10,0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Border Width="50" Height="50" 
+                                   CornerRadius="10"
+                                   Background="{StaticResource PrimaryGradientBrush}"
+                                   Margin="0,0,15,0">
+                                <TextBlock Text="👤" 
+                                          FontSize="24"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Trạng thái NV" 
+                                      FontSize="18" 
+                                      FontWeight="SemiBold"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="lstTrangThai">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F9FA" 
+                                               CornerRadius="6" 
+                                               Padding="10"
+                                               Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBlock Text="{Binding TenTrangThai}" 
+                                                          FontSize="14"
+                                                          VerticalAlignment="Center"/>
+                                                <Button Content="🗑️" 
+                                                       HorizontalAlignment="Right"
+                                                       Style="{StaticResource MaterialDesignIconButton}"
+                                                       Click="BtnDeleteTrangThai_Click"
+                                                       Tag="{Binding Id}"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <Button Content="+ Thêm" 
+                               Style="{StaticResource PrimaryButtonStyle}"
+                               Margin="0,10,0,0"
+                               Click="BtnAddTrangThai_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 5: Loại tài liệu -->
+                <Border Grid.Row="1" Grid.Column="1" 
+                       Style="{StaticResource CardStyle}"
+                       Margin="0,0,10,0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <Border Width="50" Height="50" 
+                                   CornerRadius="10"
+                                   Background="{StaticResource PrimaryGradientBrush}"
+                                   Margin="0,0,15,0">
+                                <TextBlock Text="📁" 
+                                          FontSize="24"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Loại tài liệu" 
+                                      FontSize="18" 
+                                      FontWeight="SemiBold"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="lstLoaiTaiLieu">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F9FA" 
+                                               CornerRadius="6" 
+                                               Padding="10"
+                                               Margin="0,0,0,10">
+                                            <Grid>
+                                                <TextBlock Text="{Binding TenLoai}" 
+                                                          FontSize="14"
+                                                          VerticalAlignment="Center"/>
+                                                <Button Content="🗑️" 
+                                                       HorizontalAlignment="Right"
+                                                       Style="{StaticResource MaterialDesignIconButton}"
+                                                       Click="BtnDeleteLoaiTaiLieu_Click"
+                                                       Tag="{Binding Id}"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <Button Content="+ Thêm" 
+                               Style="{StaticResource PrimaryButtonStyle}"
+                               Margin="0,10,0,0"
+                               Click="BtnAddLoaiTaiLieu_Click"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

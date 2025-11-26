@@ -1,0 +1,123 @@
+﻿<Window x:Class="quanlynhansu_app.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Quản lý nhân sự" 
+        Height="800" 
+        Width="1400"
+        WindowState="Maximized"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Top Navbar -->
+            <RowDefinition Height="70"/>
+            <!-- Content -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================= TOP NAVBAR ================= -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryGradientBrush}">
+            <Grid Margin="30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo và Brand -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="👥" FontSize="32" Margin="0,0,12,0"/>
+                    <TextBlock Text="QUẢN LÝ NHÂN SỰ" 
+                              FontSize="16" 
+                              FontWeight="SemiBold"
+                              Foreground="White"
+                              VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Menu -->
+                <StackPanel Grid.Column="1" 
+                           Orientation="Horizontal" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+
+                    <Button Content="📊 Tổng quan" 
+                           x:Name="btnDashboard"
+                           Style="{StaticResource MaterialDesignFlatButton}"
+                           Foreground="White"
+                           Padding="20,10"
+                           FontSize="14"
+                           Click="BtnDashboard_Click"/>
+
+                    <Button Content="👥 Nhân sự" 
+                           x:Name="btnNhanSu"
+                           Style="{StaticResource MaterialDesignFlatButton}"
+                           Foreground="White"
+                           Padding="20,10"
+                           FontSize="14"
+                           Click="BtnNhanSu_Click"/>
+
+                    <Button Content="🏢 Phòng ban" 
+                           x:Name="btnPhongBan"
+                           Style="{StaticResource MaterialDesignFlatButton}"
+                           Foreground="White"
+                           Padding="20,10"
+                           FontSize="14"
+                           Click="BtnPhongBan_Click"/>
+
+                    <Button Content="⚙️ Danh mục" 
+                           x:Name="btnDanhMuc"
+                           Style="{StaticResource MaterialDesignFlatButton}"
+                           Foreground="White"
+                           Padding="20,10"
+                           FontSize="14"
+                           Click="BtnDanhMuc_Click"/>
+                </StackPanel>
+
+                <!-- User Info -->
+                <StackPanel Grid.Column="2" 
+                           Orientation="Horizontal" 
+                           VerticalAlignment="Center">
+
+                    <StackPanel Margin="0,0,10,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="txtUsername" 
+                                  Text="admin" 
+                                  FontWeight="SemiBold"
+                                  Foreground="White"
+                                  FontSize="13"
+                                  HorizontalAlignment="Right"/>
+                        <TextBlock x:Name="txtRole" 
+                                  Text="Quản trị viên" 
+                                  FontSize="11"
+                                  Foreground="White"
+                                  Opacity="0.85"
+                                  HorizontalAlignment="Right"/>
+                    </StackPanel>
+
+                    <Button Content="👤" 
+                           Width="40" 
+                           Height="40"
+                           Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                           Background="White"
+                           Foreground="#667EEA"
+                           FontSize="18"
+                           Margin="0,0,10,0"/>
+
+                    <Button Content="Đăng xuất" 
+                           Style="{StaticResource MaterialDesignRaisedButton}"
+                           Background="#FF4757"
+                           Foreground="White"
+                           Padding="15,8"
+                           FontSize="13"
+                           Click="BtnLogout_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ================= CONTENT AREA ================= -->
+        <Frame x:Name="MainFrame" 
+               Grid.Row="1" 
+               NavigationUIVisibility="Hidden"
+               Margin="30"/>
+    </Grid>
+</Window>

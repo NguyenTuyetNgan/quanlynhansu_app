@@ -1,0 +1,331 @@
+﻿<Page x:Class="quanlynhansu_app.Views.Pages.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      Title="Tổng quan"
+      Background="{StaticResource BackgroundBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <!-- ================= HEADER ================= -->
+            <Grid Margin="0,0,0,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="📊 Tổng quan hệ thống" 
+                          FontSize="28" 
+                          FontWeight="Bold"
+                          VerticalAlignment="Center"/>
+
+                <Button Grid.Column="1"
+                       Content="📤 Xuất báo cáo" 
+                       Style="{StaticResource PrimaryButtonStyle}"
+                       Click="BtnExportReport_Click"/>
+            </Grid>
+
+            <!-- ================= STATS CARDS ================= -->
+            <Grid Margin="0,0,0,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Card 1: Tổng nhân sự -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="txtTongNhanSu" 
+                                      Text="0" 
+                                      FontSize="32" 
+                                      FontWeight="Bold"
+                                      Foreground="#667EEA"
+                                      Margin="0,0,0,5"/>
+                            <TextBlock Text="Tổng nhân sự" 
+                                      FontSize="14" 
+                                      Foreground="#999"/>
+                        </StackPanel>
+
+                        <Border Grid.Column="1"
+                               Width="60"
+                               Height="60"
+                               CornerRadius="12"
+                               Background="#F0F4FF">
+                            <TextBlock Text="👥" 
+                                      FontSize="28"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Card 2: Phòng ban -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="txtTongPhongBan" 
+                                      Text="0" 
+                                      FontSize="32" 
+                                      FontWeight="Bold"
+                                      Foreground="#4FACFE"
+                                      Margin="0,0,0,5"/>
+                            <TextBlock Text="Phòng ban" 
+                                      FontSize="14" 
+                                      Foreground="#999"/>
+                        </StackPanel>
+
+                        <Border Grid.Column="1"
+                               Width="60"
+                               Height="60"
+                               CornerRadius="12"
+                               Background="#E3F2FD">
+                            <TextBlock Text="🏢" 
+                                      FontSize="28"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Card 3: Nhân sự mới -->
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="txtNhanSuMoi" 
+                                      Text="0" 
+                                      FontSize="32" 
+                                      FontWeight="Bold"
+                                      Foreground="#F093FB"
+                                      Margin="0,0,0,5"/>
+                            <TextBlock Text="Nhân sự mới" 
+                                      FontSize="14" 
+                                      Foreground="#999"/>
+                        </StackPanel>
+
+                        <Border Grid.Column="1"
+                               Width="60"
+                               Height="60"
+                               CornerRadius="12"
+                               Background="#FCE4EC">
+                            <TextBlock Text="👤" 
+                                      FontSize="28"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Card 4: Sinh nhật -->
+                <Border Grid.Column="3" Style="{StaticResource CardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="txtSinhNhat" 
+                                      Text="0" 
+                                      FontSize="32" 
+                                      FontWeight="Bold"
+                                      Foreground="#40C0FD"
+                                      Margin="0,0,0,5"/>
+                            <TextBlock FontSize="14" Foreground="#999">
+                                <Run Text="Sinh nhật tháng "/>
+                                <Run x:Name="txtThangHienTai" Text="11"/>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <Border Grid.Column="1"
+                               Width="60"
+                               Height="60"
+                               CornerRadius="12"
+                               Background="#E1F5FE">
+                            <TextBlock Text="🎂" 
+                                      FontSize="28"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- ================= CHARTS ROW ================= -->
+            <Grid Margin="0,0,0,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Biểu đồ phân bố theo phòng ban -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="Phân bố nhân sự theo phòng ban" 
+                                  FontSize="18" 
+                                  FontWeight="SemiBold"
+                                  Margin="0,0,0,20"/>
+
+                        <!-- Placeholder cho LiveCharts -->
+                        <lvc:CartesianChart x:Name="chartPhongBan" 
+                                          Height="300"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Biểu đồ thống kê giới tính -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Thống kê giới tính" 
+                                  FontSize="18" 
+                                  FontWeight="SemiBold"
+                                  Margin="0,0,0,20"/>
+
+                        <!-- Placeholder cho LiveCharts PieChart -->
+                        <lvc:PieChart x:Name="chartGioiTinh" 
+                                    Height="300"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- ================= STATS DETAIL ROW ================= -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Thống kê chức vụ -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="Thống kê chức vụ" 
+                                  FontSize="18" 
+                                  FontWeight="SemiBold"
+                                  Margin="0,0,0,20"/>
+
+                        <ItemsControl x:Name="lstChucVu">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" 
+                                                  Text="{Binding Ten}" 
+                                                  FontSize="13"
+                                                  VerticalAlignment="Center"/>
+
+                                        <Border Grid.Column="1" 
+                                               Height="30" 
+                                               Background="#F1F3F5"
+                                               CornerRadius="6"
+                                               VerticalAlignment="Center">
+                                            <Border Background="{StaticResource PrimaryGradientBrush}"
+                                                   Width="{Binding Width}"
+                                                   HorizontalAlignment="Left"
+                                                   CornerRadius="6"/>
+                                        </Border>
+
+                                        <TextBlock Grid.Column="2" 
+                                                  Text="{Binding SoLuong}" 
+                                                  FontWeight="SemiBold"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Thống kê hợp đồng -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="Thống kê loại hợp đồng" 
+                                  FontSize="18" 
+                                  FontWeight="SemiBold"
+                                  Margin="0,0,0,20"/>
+
+                        <ItemsControl x:Name="lstHopDong">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" 
+                                                  Text="{Binding Ten}" 
+                                                  FontSize="13"
+                                                  VerticalAlignment="Center"/>
+
+                                        <TextBlock Grid.Column="1" 
+                                                  Text="{Binding SoLuong}" 
+                                                  FontWeight="SemiBold"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Thống kê trạng thái -->
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Thống kê trạng thái" 
+                                  FontSize="18" 
+                                  FontWeight="SemiBold"
+                                  Margin="0,0,0,20"/>
+
+                        <ItemsControl x:Name="lstTrangThai">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" 
+                                                  Text="{Binding Ten}" 
+                                                  FontSize="13"
+                                                  VerticalAlignment="Center"/>
+
+                                        <TextBlock Grid.Column="1" 
+                                                  Text="{Binding SoLuong}" 
+                                                  FontWeight="SemiBold"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

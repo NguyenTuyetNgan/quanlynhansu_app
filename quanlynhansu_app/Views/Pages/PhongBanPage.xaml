@@ -1,0 +1,64 @@
+﻿<Page x:Class="quanlynhansu_app.Views.Pages.PhongBanPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Quản lý phòng ban"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================= HEADER ================= -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="🏢 Quản lý phòng ban" 
+                      FontSize="28" 
+                      FontWeight="Bold"
+                      VerticalAlignment="Center"/>
+
+            <Button Grid.Column="1"
+                   Content="+ Thêm phòng ban" 
+                   Style="{StaticResource PrimaryButtonStyle}"
+                   Click="BtnAdd_Click"/>
+        </Grid>
+
+        <!-- ================= SEARCH BAR ================= -->
+        <Border Grid.Row="1" 
+                Style="{StaticResource CardStyle}"
+                Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="txtSearch" 
+                        Grid.Column="0"
+                        Style="{StaticResource ModernTextBoxStyle}"
+                        materialDesign:HintAssist.Hint="🔍 Tìm kiếm theo mã phòng ban, tên phòng ban..."
+                        KeyUp="TxtSearch_KeyUp"
+                        Margin="0,0,10,0"/>
+
+                <Button Grid.Column="1"
+                       Content="↻ Đặt lại" 
+                       Style="{StaticResource MaterialDesignOutlinedButton}"
+                       Click="BtnReset_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- ================= DEPARTMENTS GRID ================= -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="gridPhongBan">
+                <!-- Grid sẽ được tạo động trong code-behind -->
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

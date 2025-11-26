@@ -1,0 +1,240 @@
+﻿<Page x:Class="quanlynhansu_app.Views.Pages.NhanSuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Quản lý nhân sự"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================= HEADER ================= -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="👥 Quản lý nhân sự" 
+                      FontSize="28" 
+                      FontWeight="Bold"
+                      VerticalAlignment="Center"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Content="📥 Import Excel" 
+                       Style="{StaticResource PrimaryButtonStyle}"
+                       Margin="0,0,10,0"
+                       Click="BtnImport_Click"/>
+
+                <Button Content="📤 Export Excel" 
+                       Style="{StaticResource PrimaryButtonStyle}"
+                       Margin="0,0,10,0"
+                       Click="BtnExport_Click"/>
+
+                <Button Content="+ Thêm nhân sự" 
+                       Style="{StaticResource PrimaryButtonStyle}"
+                       Click="BtnAdd_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ================= SEARCH & FILTER ================= -->
+        <Border Grid.Row="1" 
+                Style="{StaticResource CardStyle}"
+                Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search box -->
+                <TextBox x:Name="txtSearch" 
+                        Grid.Column="0"
+                        Style="{StaticResource ModernTextBoxStyle}"
+                        materialDesign:HintAssist.Hint="🔍 Tìm kiếm theo mã NV, họ tên, email..."
+                        KeyUp="TxtSearch_KeyUp"
+                        Margin="0,0,10,0"/>
+
+                <!-- Filter theo phòng ban -->
+                <ComboBox x:Name="cboPhongBan" 
+                         Grid.Column="1"
+                         Width="200"
+                         materialDesign:HintAssist.Hint="Phòng ban"
+                         SelectionChanged="Filter_Changed"
+                         Margin="0,0,10,0"/>
+
+                <!-- Filter theo trạng thái -->
+                <ComboBox x:Name="cboTrangThai" 
+                         Grid.Column="2"
+                         Width="180"
+                         materialDesign:HintAssist.Hint="Trạng thái"
+                         SelectionChanged="Filter_Changed"
+                         Margin="0,0,10,0"/>
+
+                <!-- Nút reset -->
+                <Button Content="↻ Đặt lại" 
+                       Grid.Column="3"
+                       Style="{StaticResource MaterialDesignOutlinedButton}"
+                       Click="BtnReset_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- ================= DATA TABLE ================= -->
+        <Border Grid.Row="2" Style="{StaticResource CardStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Table header -->
+                <Grid Grid.Row="0" Margin="0,0,0,15">
+                    <TextBlock FontSize="18" FontWeight="SemiBold">
+                        <Run Text="Danh sách nhân sự ("/>
+                        <Run x:Name="txtTotalCount" Text="0"/>
+                        <Run Text=")"/>
+                    </TextBlock>
+                </Grid>
+
+                <!-- DataGrid -->
+                <DataGrid x:Name="dgNhanSu" 
+                         Grid.Row="1"
+                         Style="{StaticResource ModernDataGridStyle}"
+                         SelectionChanged="DgNhanSu_SelectionChanged">
+                    <DataGrid.Columns>
+                        <!-- Mã NV -->
+                        <DataGridTextColumn Header="Mã NV" 
+                                          Binding="{Binding MaNhanVien}" 
+                                          Width="100"/>
+
+                        <!-- Ảnh đại diện -->
+                        <DataGridTemplateColumn Header="Ảnh" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Width="40" 
+                                           Height="40" 
+                                           CornerRadius="20"
+                                           Background="#E0E0E0">
+                                        <TextBlock Text="👤" 
+                                                  FontSize="20"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Họ tên -->
+                        <DataGridTextColumn Header="Họ và tên" 
+                                          Binding="{Binding HoTen}" 
+                                          Width="200"/>
+
+                        <!-- Giới tính -->
+                        <DataGridTextColumn Header="Giới tính" 
+                                          Binding="{Binding GioiTinh}" 
+                                          Width="80"/>
+
+                        <!-- Chức vụ -->
+                        <DataGridTextColumn Header="Chức vụ" 
+                                          Binding="{Binding TenChucVu}" 
+                                          Width="150"/>
+
+                        <!-- Phòng ban -->
+                        <DataGridTextColumn Header="Phòng ban" 
+                                          Binding="{Binding TenPhongBan}" 
+                                          Width="150"/>
+
+                        <!-- Email -->
+                        <DataGridTextColumn Header="Email" 
+                                          Binding="{Binding Email}" 
+                                          Width="200"/>
+
+                        <!-- SĐT -->
+                        <DataGridTextColumn Header="Số điện thoại" 
+                                          Binding="{Binding SoDienThoai}" 
+                                          Width="130"/>
+
+                        <!-- Trạng thái -->
+                        <DataGridTemplateColumn Header="Trạng thái" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="12" 
+                                           Padding="10,5"
+                                           HorizontalAlignment="Center">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TrangThaiId}" Value="1">
+                                                        <Setter Property="Background" Value="#D4EDDA"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TrangThaiId}" Value="2">
+                                                        <Setter Property="Background" Value="#FFF3CD"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TrangThaiId}" Value="3">
+                                                        <Setter Property="Background" Value="#F8D7DA"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <TextBlock Text="{Binding TenTrangThai}" 
+                                                  FontSize="12"
+                                                  FontWeight="SemiBold">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding TrangThaiId}" Value="1">
+                                                            <Setter Property="Foreground" Value="#155724"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TrangThaiId}" Value="2">
+                                                            <Setter Property="Foreground" Value="#856404"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding TrangThaiId}" Value="3">
+                                                            <Setter Property="Foreground" Value="#721C24"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Thao tác -->
+                        <DataGridTemplateColumn Header="Thao tác" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Content="👁️" 
+                                               ToolTip="Xem chi tiết"
+                                               Style="{StaticResource MaterialDesignIconButton}"
+                                               Click="BtnView_Click"
+                                               Tag="{Binding Id}"/>
+
+                                        <Button Content="✏️" 
+                                               ToolTip="Chỉnh sửa"
+                                               Style="{StaticResource MaterialDesignIconButton}"
+                                               Click="BtnEdit_Click"
+                                               Tag="{Binding Id}"/>
+
+                                        <Button Content="🗑️" 
+                                               ToolTip="Xóa"
+                                               Style="{StaticResource MaterialDesignIconButton}"
+                                               Click="BtnDelete_Click"
+                                               Tag="{Binding Id}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
