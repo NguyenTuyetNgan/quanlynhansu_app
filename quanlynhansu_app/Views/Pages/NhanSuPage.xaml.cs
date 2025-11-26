@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using quanlynhansu_app.Data;
+using quanlynhansu_app.Models;
+using quanlynhansu_app.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using quanlynhansu_app.Models;
-using quanlynhansu_app.Services;
-using quanlynhansu_app.Data;
 
 namespace quanlynhansu_app.Views.Pages
 {
@@ -257,25 +258,63 @@ namespace quanlynhansu_app.Views.Pages
         /// <summary>
         /// Import Excel
         /// </summary>
-        private void BtnImport_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(
-                "Chức năng Import Excel sẽ được phát triển sau.\n\nSử dụng thư viện EPPlus hoặc ClosedXML.",
-                "Thông báo",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
+        // Thêm using Microsoft.Win32; để dùng SaveFileDialog
 
-        /// <summary>
-        /// Export Excel
-        /// </summary>
         private void BtnExport_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "Chức năng Export Excel sẽ được phát triển sau.\n\nSử dụng thư viện EPPlus hoặc ClosedXML.",
-                "Thông báo",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Files|*.xlsx",
+                    FileName = $"DanhSachNhanSu_{DateTime.Now:ddMMyyyy}.xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    var excelService = new Services.ExcelService();
+                    // allNhanSu là biến list bạn đã khai báo ở đầu class
+                    excelService.ExportNhanSu(allNhanSu, saveFileDialog.FileName);
+
+                    MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi xuất file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnImport_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Excel Files (*.xlsx)|*.xlsx"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var excelService = new Services.ExcelService();
+                    var listImport = excelService.ImportNhanSu(openFileDialog.FileName);
+
+                    int countSuccess = 0;
+                    foreach (var ns in listImport)
+                    {
+                        // Kiểm tra trùng Mã NV trước khi thêm
+                        if (nhanSuService.AddNhanSu(ns))
+                            countSuccess++;
+                    }
+
+                    MessageBox.Show($"Đã import thành công {countSuccess}/{listImport.Count} nhân sự!", "Kết quả");
+                    LoadData(); // Reload lại bảng
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi import: " + ex.Message);
+                }
+            }
         }
 
         /// <summary>

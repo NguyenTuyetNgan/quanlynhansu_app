@@ -155,7 +155,32 @@ namespace quanlynhansu_app.Views.Pages
         // ==========================================================
         private void BtnExportReport_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Chức năng xuất báo cáo đang được phát triển!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Lấy lại các số liệu đang hiển thị trên màn hình
+            // Lưu ý: Cần parse ngược từ TextBlock hoặc lưu biến toàn cục khi LoadData
+            if (int.TryParse(txtTongNhanSu.Text, out int totalNV) &&
+                int.TryParse(txtTongPhongBan.Text, out int totalPB) &&
+                int.TryParse(txtNhanSuMoi.Text, out int newNV))
+            {
+                var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    FileName = $"BaoCao_Dashboard_{DateTime.Now:ddMMyyyy}.xlsx",
+                    Filter = "Excel Files|*.xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        var excelService = new Services.ExcelService();
+                        excelService.ExportDashboard(saveFileDialog.FileName, totalNV, totalPB, newNV);
+                        MessageBox.Show("Xuất báo cáo thành công!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi: " + ex.Message);
+                    }
+                }
+            }
         }
     }
 

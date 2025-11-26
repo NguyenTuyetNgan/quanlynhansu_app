@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <!-- MySQL Connector cho .NET -->
+    <PackageReference Include="ExcelDataReader" Version="3.8.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
     <PackageReference Include="MySql.Data" Version="8.3.0" />
     
     <!-- Entity Framework Core cho MySQL (tùy chọn) -->
@@ -24,6 +26,7 @@
     
     <!-- EPPlus cho xuất Excel -->
     <PackageReference Include="EPPlus" Version="7.0.4" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" />
   </ItemGroup>
 
 </Project>

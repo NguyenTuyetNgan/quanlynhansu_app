@@ -77,6 +77,10 @@ namespace quanlynhansu_app
             MainFrame.Navigate(new DanhMucPage());
         }
 
+        private void BtnTaiKhoan_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new TaiKhoanPage());
+        }
         /// <summary>
         /// Đăng xuất
         /// </summary>

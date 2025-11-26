@@ -1,0 +1,65 @@
+﻿<Page x:Class="quanlynhansu_app.Views.Pages.TaiKhoanPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Quản lý tài khoản"
+      Background="{StaticResource BackgroundBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="🔐 Quản lý tài khoản" FontSize="28" FontWeight="Bold"/>
+            <Button Content="+ Thêm tài khoản" HorizontalAlignment="Right"
+                    Style="{StaticResource PrimaryButtonStyle}" Click="BtnAdd_Click"/>
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}">
+            <DataGrid x:Name="dgTaiKhoan" Style="{StaticResource ModernDataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="Tên đăng nhập" Binding="{Binding Username}" Width="150"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                    <DataGridTemplateColumn Header="Vai trò" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="10" Padding="10,2">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="#E0E0E0"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Role}" Value="admin">
+                                                    <Setter Property="Background" Value="#FFE082"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Role}" Value="Quản trị viên">
+                                                    <Setter Property="Background" Value="#FFE082"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Text="{Binding Role}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Thao tác" Width="150">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="🔑" ToolTip="Đổi mật khẩu" Click="BtnResetPass_Click" Tag="{Binding Id}"
+                                            Style="{StaticResource MaterialDesignIconButton}"/>
+                                    <Button Content="🗑️" ToolTip="Xóa" Click="BtnDelete_Click" Tag="{Binding Id}"
+                                            Style="{StaticResource MaterialDesignIconButton}" Foreground="Red"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

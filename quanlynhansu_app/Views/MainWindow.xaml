@@ -72,6 +72,14 @@
                            Padding="20,10"
                            FontSize="14"
                            Click="BtnDanhMuc_Click"/>
+
+                    <Button Content="🔐 Tài khoản" 
+                            x:Name="btnTaiKhoan"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Foreground="White"
+                            Padding="20,10"
+                            FontSize="14"
+                            Click="BtnTaiKhoan_Click"/>
                 </StackPanel>
 
                 <!-- User Info -->

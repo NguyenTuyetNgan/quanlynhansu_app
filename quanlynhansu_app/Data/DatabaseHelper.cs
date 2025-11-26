@@ -10,7 +10,7 @@ namespace quanlynhansu_app.Data
     public class DatabaseHelper
     {
         // Connection string - thay đổi theo cấu hình của bạn
-        private static string connectionString = "Server=localhost;Database=quanlynhansu_db;Uid=root;Pwd=;CharSet=utf8mb4;";
+        private static string connectionString = "Server=localhost;Database=quanlynhansu_db;Uid=root;Pwd=;CharSet=utf8mb4;Convert Zero Datetime=True;";
 
         /// <summary>
         /// Lấy connection mới đến database
